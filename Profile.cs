@@ -1,6 +1,6 @@
 /*
  * author: Nasa Iwai
- * date: November 10th, 2016
+ * date: November 11th, 2016
  */
 
 using UnityEngine;
@@ -62,9 +62,21 @@ public class Profile : MonoBehaviour {
 
 	void setAccomplishment () {
 		if(DoneReading) {
-			reading.sprite = Resources.Load<Sprite> ("settings") as Sprite;
+			reading.sprite = Resources.Load<Sprite> ("done") as Sprite;
 		} else {
 			reading.sprite = Resources.Load<Sprite> ("not_done") as Sprite;
+		}
+
+		if(DoneWriting) {
+			writing.sprite = Resources.Load<Sprite> ("done") as Sprite;
+		} else {
+			writing.sprite = Resources.Load<Sprite> ("not_done") as Sprite;
+		}
+
+		if(DoneMath) {
+			math.sprite = Resources.Load<Sprite> ("done") as Sprite;
+		} else {
+			math.sprite = Resources.Load<Sprite> ("not_done") as Sprite;
 		}
 	}
 
