@@ -15,19 +15,19 @@ public class ConnectScenes : MonoBehaviour {
 	}
 		
 	public void NextStage (int stage) {
-		SceneManager.LoadScene (stage + 2);
-	}
-
-	public void PreviousStage (int stage) {
 		SceneManager.LoadScene (stage);
 	}
 
+	public void PreviousStage (int stage) {
+		SceneManager.LoadScene (stage - 2);
+	}
+
 	public void SignUp () {
-		SceneManager.LoadScene (1);
+		SceneManager.LoadScene (8);
 	}
 
 	public void Login () {
-		SceneManager.LoadScene (0);
+		SceneManager.LoadScene (7);
 	}
 }
 
