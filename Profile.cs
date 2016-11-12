@@ -22,6 +22,7 @@ public class Profile : MonoBehaviour {
 	public Text currentLevel;
 	public Text currentPoints;
 	public Text streakText;
+	public Text streakLevelText;
 
 	public Image streak1, streak2, streak3, streak4;
 	public Image background;
@@ -49,7 +50,7 @@ public class Profile : MonoBehaviour {
 		streakLevel.text = (streak / 10).ToString();
 		setStreak ();
 
-		gender = getDataValue (items [2], "gender:");
+		gender = getDataValue (items [1], "gender:");
 		print (getDataValue (items [1], "gender:"));
 		print (string.Equals (gender, "girl"));
 		setBackground ();
@@ -75,31 +76,35 @@ public class Profile : MonoBehaviour {
 		}
 		else if (string.Equals (gender, "boy")) {
 			background.sprite = Resources.Load<Sprite> ("boy_background") as Sprite;
-			currentLevel.color = new Color(0.0f, 0.56f, 0.31f);
+			//currentLevel.color = new Color(0.0f, 0.56f, 0.31f);
 			//currentPoints.color = new Color(0.46f, 1.57f, 0.06f);
-			streakText.color = Color.green;
+			firstName.color = Color.black;
+			streakText.color = Color.black;
+			currentLevel.color = Color.black;
+			currentPoints.color = Color.black;
+			streakLevelText.color = Color.black;
 		}
 	}
 
 	void setStreak () {
 		switch (streak % 4) {
 		case 0:
-			setStreak (false, false, false, false);
+			setStreakHelper (false, false, false, false);
 			break;
 		case 1:
-			setStreak (true, false, false, false);
+			setStreakHelper (true, false, false, false);
 			break;
 		case 2:
-			setStreak (true, true, false, false);
+			setStreakHelper (true, true, false, false);
 			break;
 		case 3:
-			setStreak (true, true, true, false);
+			setStreakHelper (true, true, true, false);
 			break;
 		}
 
 	}
 
-	void setStreak (bool st1, bool st2, bool st3, bool st4) {
+	void setStreakHelper (bool st1, bool st2, bool st3, bool st4) {
 		if (st1 == true) {
 			streak1.sprite = Resources.Load<Sprite> ("done") as Sprite;
 		} else {
@@ -124,4 +129,5 @@ public class Profile : MonoBehaviour {
 			streak4.sprite = Resources.Load<Sprite> ("not_done") as Sprite;
 		}
 	}
+
 }
