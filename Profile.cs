@@ -26,9 +26,13 @@ public class Profile : MonoBehaviour {
 
 	public Image streak1, streak2, streak3, streak4;
 	public Image background;
+	public Image profilePic;
 
 	public int streak;
 	public string gender;
+	public string profile_pic;
+	public int user;
+	public string test = "cow";
 
 	public string[] items;
 
@@ -37,21 +41,27 @@ public class Profile : MonoBehaviour {
 		yield return data;
 		string dataString = data.text;	
 		items = dataString.Split (';');
+		user = 0;
 
-		print (getDataValue(items[2], "firstName:"));
-		print (getDataValue (items [2], "reading:"));
+		print (getDataValue(items[user], "firstName:"));
+		print (getDataValue (items [user], "reading:"));
+		print ("user: " + user);
 
-		firstName.text = getDataValue (items[2], "firstName:");
-		stageLevel.text = getDataValue (items [2], "stageLevel:");
-		points.text = getDataValue (items [2], "point:");
-		grade.text = getDataValue (items[2], "grade:");
+		firstName.text = getDataValue (items[user], "firstName:");
+		stageLevel.text = getDataValue (items [user], "stageLevel:");
+		points.text = getDataValue (items [user], "point:");
+		grade.text = getDataValue (items[user], "grade:");
 
-		streak = Int32.Parse (getDataValue (items[1], "streak:"));
+		profile_pic = getDataValue (items[user], "profileImage:");
+		setProfilePic ();
+		print (profile_pic);
+
+		streak = Int32.Parse (getDataValue (items[user], "streak:"));
 		streakLevel.text = (streak / 10).ToString();
 		setStreak ();
 
-		gender = getDataValue (items [1], "gender:");
-		print (getDataValue (items [1], "gender:"));
+		gender = getDataValue (items [user], "gender:");
+		print (getDataValue (items [user], "gender:"));
 		print (string.Equals (gender, "girl"));
 		setBackground ();
 	}
@@ -70,7 +80,11 @@ public class Profile : MonoBehaviour {
 		return value;
 	}
 
-	void setBackground () {
+	void setProfilePic () {
+		profilePic.sprite = Resources.Load<Sprite> (profile_pic) as Sprite;
+	}
+
+	void setBackground (){
 		if (string.Equals (gender, "girl")) {
 			background.sprite = Resources.Load<Sprite> ("girl_background") as Sprite;
 		}
