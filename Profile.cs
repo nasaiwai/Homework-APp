@@ -36,40 +36,36 @@ public class Profile : MonoBehaviour {
 	public string[] items;		//contains all users' information as a string array
 
 	IEnumerator Start() {
+		/* In order to get data using username used in login as a primary key
+		 */
+		print ("username is " + Login.Username);
+		WWWForm form = new WWWForm ();
+		form.AddField ("usernamePost", Login.Username);
+
 		/* get a data from the database as a string
 		 * put each user's information into array items[]
 		 */
-		WWW data = new WWW("http://tclchomeworkapp.000webhostapp.com/loadData.php");
+		WWW data = new WWW("http://tclchomeworkapp.000webhostapp.com/Profile.php", form);
 		yield return data;
 		string dataString = data.text;	
-		items = dataString.Split (';');
-		user = 0;
-
-		print ("username is " + Login.Username);
-		print (getDataValue(items[user], "firstName:"));
-		print (getDataValue (items [user], "reading:"));
-		print ("user: " + user);
 
 		/* Obtain a spacific user's information */
-		firstName.text = getDataValue (items[user], "firstName:");
-		stageLevel.text = getDataValue (items [user], "stageLevel:");
-		points.text = getDataValue (items [user], "point:");
-		grade.text = getDataValue (items[user], "grade:");
+		firstName.text = getDataValue (dataString, "firstName:");
+		stageLevel.text = getDataValue (dataString, "stageLevel:");
+		points.text = getDataValue (dataString, "point:");
+		grade.text = getDataValue (dataString, "grade:");
 
 		/* set a profile picture*/
-		profile_pic = getDataValue (items[user], "profileImage:");
+		profile_pic = getDataValue (dataString, "profileImage:");
 		setProfilePic ();
-		print (profile_pic);
 
 		/* set streak images at the bottom of the profile */
-		streak = Int32.Parse (getDataValue (items[user], "streak:"));
+		streak = Int32.Parse (getDataValue (dataString, "streak:"));
 		streakLevel.text = (streak / 10).ToString();
 		setStreak ();
 
 		/* set the background and text color based on the students' gender */
-		gender = getDataValue (items [user], "gender:");
-		print (getDataValue (items [user], "gender:"));
-		print (string.Equals (gender, "girl"));
+		gender = getDataValue (dataString, "gender:");
 		setBackground ();
 	}
 		
@@ -85,6 +81,8 @@ public class Profile : MonoBehaviour {
 		string value = data.Substring (data.IndexOf (index) + index.Length);
 		if (value.Contains("|"))
 			value = value.Remove (value.IndexOf("|"));
+		if (value.Contains(";"))
+			value = value.Remove (value.IndexOf(";"));
 		return value;
 	}
 

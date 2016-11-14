@@ -5,21 +5,33 @@
     $dbName = "id162193_homeworkapp";
 
     $insert_username = $_POST["usernamePost"];
-    $insert_points = $_POST["pointsPost"];
-    $insert_streak = $_POST["streakPost"];
-    $insert_status = $_POST["todayStatusPost"];
 
+    $usernametest = "nasaiwai";
     $conn = new mysqli($servername, $username, $password, $dbName);
 
     if(!$conn) {
         die("connection failed ".mysqli_connect_error());
+    } else {
+        echo "connect success";
     }
 
-    // $sql = "INSERT INTO homeworkApp (username, password, lastName, firstName, grade, gender) VALUES ('".$insert_username."', '".$insert_password."', '".$insert_lastName."', '".$insert_firstName."', '".$insert_grade."', '".$insert_gender."')";
-    $sql = "UPDATE homeworkApp SET point=".$insert_points.", streak=".$insert_streak.", todayStatus=".$insert_status." WHERE username='".$insert_username."'";
+    $sql = "SELECT * FROM homeworkApp WHERE username = '$insert_username'";
+    
     $result = mysqli_query($conn, $sql);
 
-    if(!$result) echo "there was an error";
-    else echo "everything is ok";
-
+    if(mysqli_num_rows($result)>0) {
+        while($row = mysqli_fetch_assoc($result)){
+            echo "username:" . $row['username'] .
+                 "|firstName:" . $row['firstName'] .
+                 "|grade:" . $row['grade'] .
+                 "|gender:" . $row['gender'] .
+                 "|stageLevel:" . $row['stageLevel'] .
+                 "|point:" . $row['point'] .
+                 "|streak:" . $row['streak'] .
+                 "|profileImage:" . $row['profileImage'] . ";";
+        }
+    }
+    else {
+        echo "failed";
+    }   
 ?>
