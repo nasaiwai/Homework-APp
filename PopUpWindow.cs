@@ -10,17 +10,13 @@ using System.Collections;
 public class PopUpWindow : MonoBehaviour {
 
 	public GameObject window;
-	public Text messageField;
 
-	// Show (string)
-	// Displays the indicated message in a pop-up menu
-	public void Open (string message) {
-		messageField.text = message;
+	/* Displays the indicated message in a pop-up menu */
+	public void Open () {
 		window.SetActive (true);
 	}
 
-	// Hide()
-	// Closes the pop-up window
+	/* Closes the pop-up window */
 	public void Close() {
 		window.SetActive (false);
 	}
